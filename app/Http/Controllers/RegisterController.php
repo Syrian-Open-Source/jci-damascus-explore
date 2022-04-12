@@ -43,11 +43,14 @@ class RegisterController extends Controller
             $data = $this->calculateTotalCost($request, $data);
 
             $user = User::create($data);
+            if ($request->activities) {
+                $user->activities()->attach($request->activities);
+            }
 
             event(new SendEmail($user));
         });
 
-        return ;
+        return;
     }
 
     /**
