@@ -126,6 +126,8 @@
 @push('custom-scripts')
 
     <script>
+        recalculatePrice();
+
         $('.local-room').change(function () {
             if ($(this).val() == 0) {
                 $('.hotel').attr('disabled', true);

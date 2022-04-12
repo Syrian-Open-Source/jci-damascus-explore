@@ -33,7 +33,7 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      * @author karam mustafa
      */
-    public function register(RegisterRequest $request)
+    public function store(RegisterRequest $request)
     {
 
         DB::transaction(function () use ($request) {
