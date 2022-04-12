@@ -26,6 +26,7 @@ return [
 
     'welcome_message' => 'مرحباً بك في Explore Damascus',
     'register_success' => 'تم التسجيل على Explore Damascus بنجاح',
+    'register_success_with_desc' => ' تم التسجيل على Explore Damascus بنجاح، ستتلقى الأن بريد الكتروني يفيد بالتواصل مع الخازن المحلي الخاص بالغرفة التي تتبع لها من أجل استكمال تثبيت التسجيل، شكراً لك.',
     'fill_name_ar' => 'الاسم الثلاثي باللغة العربية',
     'fill_name_en' => 'الاسم الثلاثي باللغة الانجليزية',
     'birth_date' => 'تاريخ الميلاد',
