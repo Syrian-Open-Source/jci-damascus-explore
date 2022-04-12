@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container my-5">
+        @include('layouts.sessions')
         <h1 class="f-red font-weight-bold">{{trans('global.welcome_message')}}</h1>
         <p>{{trans('global.texts.introduction')}}</p>
         <div class="d-inline-flex justify-content-center align-items-center">

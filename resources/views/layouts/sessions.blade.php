@@ -11,3 +11,11 @@
         </ul>
     </div>
 @endif
+
+@if (session()->has('success'))
+    <div class="alert alert-success w-75 mx-auto mt-5">
+        <div class="font-medium text-red-600">
+            {{ session()->get('success') }}
+        </div>
+    </div>
+@endif
