@@ -50,6 +50,7 @@ class RegisterController extends Controller
             event(new SendEmail($user));
         });
 
+        session()->flash('success' , trans('global.register_success_with_desc'));
         return redirect()->route('home.index');
     }
 
