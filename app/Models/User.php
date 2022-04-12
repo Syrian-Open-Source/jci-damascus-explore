@@ -28,7 +28,6 @@ class User extends \TCG\Voyager\Models\User
         'email',
         'avatar',
         'email_verified_at',
-        'password',
         'is_approved',
         'fill_name_en',
         'fill_name_ar',
