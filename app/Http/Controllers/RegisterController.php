@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @param  \App\Http\Requests\RegisterRequest  $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
      * @author karam mustafa
      */
     public function store(RegisterRequest $request)
@@ -50,7 +50,7 @@ class RegisterController extends Controller
             event(new SendEmail($user));
         });
 
-        return;
+        return redirect()->route('home.index');
     }
 
     /**
