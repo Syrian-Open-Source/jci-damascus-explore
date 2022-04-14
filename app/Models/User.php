@@ -69,11 +69,6 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasOneThrough(Hotel::class, UserInfo::class, "user_id", "id", "id", "hotel_id");
     }
 
-    public function getAvatarAttribute($value)
-    {
-        return url(env('APP_URL').$this->attributes['image']);
-    }
-
     public static function getLocalRooms()
     {
         return [
