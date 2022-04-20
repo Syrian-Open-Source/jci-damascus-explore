@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        @include('layouts.sessions')
         <form class="mx-auto mt-5 w-75" method="POST" action="{{route('register')}}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -98,7 +99,7 @@
             <p>{{trans('global.activities')}}</p>
             @foreach($activities as $index => $activity)
                 <div class="form-check">
-                    <input class="form-check-input activity-item" name="activity[]" data-price="{{$activity->price}}" type="checkbox" value="{{$activity->id}}" id="{{$activity->id}}">
+                    <input class="form-check-input activity-item" name="activities[]" data-price="{{$activity->price}}" type="checkbox" value="{{$activity->id}}" id="{{$activity->id}}">
                     <label class="form-check-label" for="{{$activity->id}}">
                         {{$activity->name}} - {{trans('global.cost_for_person')}}: {{$activity->price}} {{trans('global.unit')}}
                     </label>

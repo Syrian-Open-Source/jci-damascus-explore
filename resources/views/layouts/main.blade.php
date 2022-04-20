@@ -38,7 +38,6 @@
 
 <div class="main">
     @include('layouts.header')
-    @include('layouts.sessions')
     @yield('content')
     @include('layouts.footer')
 </div>
