@@ -107,7 +107,7 @@
                 </div>
             @endforeach
             <h3 class="total-price mt-5">{{trans('global.total_cost')}}: </h3>
-            <button type="submit" class="btn btn-primary mt-2 w-100">{{trans('global.submit')}}</button>
+            <button type="submit" class="btn btn-primary mt-2 w-100 red-bg">{{trans('global.submit')}}</button>
         </form>
     </div>
 @endsection
