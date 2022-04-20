@@ -33,16 +33,17 @@
             </div>
             <div class="form-group">
                 <label>{{trans('global.whatsapp')}}</label>
-                <input required name="whatsapp" maxlength="50" class="form-control">
+                <input required name="whatsapp" maxlength="50"  type="number" class="form-control">
             </div>
+
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.image')}}</label>
-                    <input type="file" name="image" maxlength="50" class="form-control">
+                    <input type="file" name="image" maxlength="50" class="form-control" required>
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.id_image')}}</label>
-                    <input type="file" name="id_image" maxlength="50" class="form-control">
+                    <input type="file" name="id_image" maxlength="50" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">

@@ -37,8 +37,8 @@ class RegisterRequest extends FormRequest
             "food_allergy" => ['required', 'string', 'max:50'],
             "illnesses" => ['required', 'string', 'max:50'],
             "hotel_id" => ['required', 'string', 'exists:hotels,id'],
-            "image" => ['required', 'image', 'exists:hotels,id', 'mimes:jpg,png,jpeg,gif,svg|max:2048'],
-            "id_image" => ['required', 'image', 'exists:hotels,id', 'mimes:jpg,png,jpeg,gif,svg|max:2048'],
+            "image" => ['required','image', 'mimes:jpg,png,jpeg,gif,svg|max:2048'],
+            "id_image" => ['required','image', 'mimes:jpg,png,jpeg,gif,svg|max:2048'],
             "activities" => ['sometimes'],
             "activities.*" => ['sometimes', 'exists:activities,id']
         ];
