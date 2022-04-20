@@ -2,21 +2,21 @@
 
 @section('content')
     <div class="container">
-        <form class="mx-auto mt-5 w-75" method="POST" action="{{route('register')}}">
+        <form class="mx-auto mt-5 w-75" method="POST" action="{{route('register')}}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label>{{trans('global.fill_name_ar')}}</label>
-                <input max="50" name="fill_name_ar" class="form-control">
+                <input maxlength="50" name="fill_name_ar" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.fill_name_en')}}</label>
-                <input required name="fill_name_en" max="50" class="form-control">
+                <input required name="fill_name_en" maxlength="50" class="form-control">
             </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.birth_date')}}</label>
-                    <input type="date" name="birth_date" max="50" class="form-control">
+                    <input type="date" name="birth_date" maxlength="50" class="form-control">
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.gender')}}</label>
@@ -28,25 +28,25 @@
             </div>
             <div class="form-group">
                 <label>{{trans('global.mobile')}}</label>
-                <input required name="mobile" max="10" type="number" class="form-control">
+                <input required name="mobile" maxlength="10" minlength="10" type="number" class="form-control">
             </div>
             <div class="form-group">
                 <label>{{trans('global.whatsapp')}}</label>
-                <input required name="whatsapp" max="50" class="form-control">
+                <input required name="whatsapp" maxlength="50" class="form-control">
             </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.image')}}</label>
-                    <input type="file" name="image" max="50" class="form-control">
+                    <input type="file" name="image" maxlength="50" class="form-control">
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.id_image')}}</label>
-                    <input type="file" name="id_image" max="50" class="form-control">
+                    <input type="file" name="id_image" maxlength="50" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label>{{trans('global.fav_quote')}}</label>
-                <input required name="quote" max="50" class="form-control">
+                <input required name="quote" maxlength="50" class="form-control">
             </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
@@ -75,12 +75,12 @@
 
             <div class="form-group">
                 <label>{{trans('global.food_allergy')}}</label>
-                <input required name="food_allergy" max="50" class="form-control">
+                <input required name="food_allergy" maxlength="50" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.illnesses')}}</label>
-                <input required name="illnesses" max="50" class="form-control">
+                <input required name="illnesses" maxlength="50" class="form-control">
             </div>
 
             <div class="form-group">
@@ -96,9 +96,9 @@
             <p class="font-primary">{{trans('global.texts.hotel_notes')}}</p>
             <hr>
             <p>{{trans('global.activities')}}</p>
-            @foreach($activities as $activity)
+            @foreach($activities as $index => $activity)
                 <div class="form-check">
-                    <input class="form-check-input activity-item" data-price="{{$activity->price}}" type="checkbox" value="1" id="{{$activity->id}}">
+                    <input class="form-check-input activity-item" name="activity[]" data-price="{{$activity->price}}" type="checkbox" value="{{$activity->id}}" id="{{$activity->id}}">
                     <label class="form-check-label" for="{{$activity->id}}">
                         {{$activity->name}} - {{trans('global.cost_for_person')}}: {{$activity->price}} {{trans('global.unit')}}
                     </label>
