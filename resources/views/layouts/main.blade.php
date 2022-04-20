@@ -40,7 +40,6 @@
     @include('layouts.header')
     @include('layouts.sessions')
     @yield('content')
-    @include('components.contribution-section')
     @include('layouts.footer')
 </div>
 
