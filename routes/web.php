@@ -15,6 +15,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::post('/register', [HomeController::class, 'register'])->name('register');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
