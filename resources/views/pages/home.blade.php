@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="container">
-        <form class="mx-auto mt-5 w-75">
+        <form class="mx-auto mt-5 w-75" method="POST" action="{{route('register')}}">
+            @csrf
             <div class="form-group">
                 <label>{{trans('global.fill_name_ar')}}</label>
                 <input max="50" name="fill_name_ar" class="form-control">
@@ -45,12 +46,12 @@
             </div>
             <div class="form-group">
                 <label>{{trans('global.fav_quote')}}</label>
-                <input required name="fav_quote" max="50" class="form-control">
+                <input required name="quote" max="50" class="form-control">
             </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
-                    <label>{{trans('global.city')}}</label>
-                    <select required name="city" class="form-select">
+                    <label>{{trans('global.residence')}}</label>
+                    <select required name="Residence" class="form-select">
                         <option value="0">Damascus</option>
                         <option value="1">Aleppo</option>
                         <option value="2">Homs</option>
@@ -84,7 +85,7 @@
 
             <div class="form-group">
                 <label>{{trans('global.hotel')}}</label>
-                <select required name="city" class="form-select hotel">
+                <select required name="hotel_id" class="form-select hotel">
                     @foreach($hotels as $hotel)
                         <option value="{{$hotel->id}}" class="hotel-item"
                                 data-price="{{$hotel->price}}">{{$hotel->name}} - {{trans('global.cost_for_person')}} {{trans('global.unit')}}
