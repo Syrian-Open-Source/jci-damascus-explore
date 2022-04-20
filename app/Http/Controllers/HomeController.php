@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +16,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.home');
+        $hotels = Hotel::all();
+        $activities = Activity::all();
+
+        return view('pages.home', compact('hotels', 'activities'));
     }
 }
