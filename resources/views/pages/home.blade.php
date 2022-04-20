@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.residence')}}</label>
-                    <select required name="Residence" class="form-select">
+                    <select required name="residence" class="form-select">
                         <option value="0">Damascus</option>
                         <option value="1">Aleppo</option>
                         <option value="2">Homs</option>
