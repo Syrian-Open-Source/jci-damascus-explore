@@ -18,16 +18,16 @@
                     <input type="date" name="birth_date" max="50" class="form-control">
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
-                    <label>{{trans('global.sex')}}</label>
-                    <select name="sex" class="form-select">
+                    <label>{{trans('global.gender')}}</label>
+                    <select name="gender" class="form-select">
                         <option value="0">{{trans('global.male')}}</option>
                         <option value="1">{{trans('global.female')}}</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label>{{trans('global.phone')}}</label>
-                <input required name="phone" max="10" type="number" class="form-control">
+                <label>{{trans('global.mobile')}}</label>
+                <input required name="mobile" max="10" type="number" class="form-control">
             </div>
             <div class="form-group">
                 <label>{{trans('global.whatsapp')}}</label>
@@ -35,12 +35,12 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
-                    <label>{{trans('global.photo')}}</label>
-                    <input type="file" name="photo" max="50" class="form-control">
+                    <label>{{trans('global.image')}}</label>
+                    <input type="file" name="image" max="50" class="form-control">
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
-                    <label>{{trans('global.id_photo')}}</label>
-                    <input type="file" name="id_photo" max="50" class="form-control">
+                    <label>{{trans('global.id_image')}}</label>
+                    <input type="file" name="id_image" max="50" class="form-control">
                 </div>
             </div>
             <div class="form-group">
@@ -85,27 +85,24 @@
             <div class="form-group">
                 <label>{{trans('global.hotel')}}</label>
                 <select required name="city" class="form-select hotel">
-                    <option value="1" class="hotel-item" data-price="100">Hotel 1</option>
-                    <option value="1" class="hotel-item" data-price="100">Hotel 2</option>
-                    <option value="1" class="hotel-item" data-price="100">Hotel 3</option>
+                    @foreach($hotels as $hotel)
+                        <option value="{{$hotel->id}}" class="hotel-item"
+                                data-price="{{$hotel->price}}">{{$hotel->name}} - {{trans('global.cost_for_person')}} {{trans('global.unit')}}
+                            : {{$hotel->price}}</option>
+                    @endforeach
                 </select>
             </div>
+            <p class="font-primary">{{trans('global.texts.hotel_notes')}}</p>
             <hr>
-
             <p>{{trans('global.activities')}}</p>
-
-            <div class="form-check">
-                <input class="form-check-input activity-item" data-price="200" type="checkbox" value="1" id="activity1">
-                <label class="form-check-label" for="activity1">
-                    Ac1
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input activity-item" data-price="200" name="activity[2]" type="checkbox" value="2" id="activity2">
-                <label class="form-check-label" for="activity2">
-                    Ac2
-                </label>
-            </div>
+            @foreach($activities as $activity)
+                <div class="form-check">
+                    <input class="form-check-input activity-item" data-price="{{$activity->price}}" type="checkbox" value="1" id="{{$activity->id}}">
+                    <label class="form-check-label" for="{{$activity->id}}">
+                        {{$activity->name}} - {{trans('global.cost_for_person')}}: {{$activity->price}} {{trans('global.unit')}}
+                    </label>
+                </div>
+            @endforeach
             <h3 class="total-price mt-5">{{trans('global.total_cost')}}: </h3>
             <button type="submit" class="btn btn-primary mt-2 w-100">{{trans('global.submit')}}</button>
         </form>
@@ -126,17 +123,16 @@
         function recalculatePrice() {
             let total = 0;
             $('.hotel-item').each((index, item) => {
-                if(item.selected){
-                    total += parseInt(item.dataset.price);
+                if (item.selected) {
+                    total += parseFloat(item.dataset.price);
                 }
             });
             $('.activity-item').each((index, item) => {
-                if(item.checked){
-                    total += parseInt(item.dataset.price);
+                if (item.checked) {
+                    total += parseFloat(item.dataset.price);
                 }
             });
-
-            $('.total-price').html("{{trans('global.total_cost')}}:" + total)
+            $('.total-price').html("{{trans('global.total_cost')}}: " + `<b>${total}</b>` + " {{trans('global.unit')}}")
         }
     </script>
 @endpush
