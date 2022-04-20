@@ -26,6 +26,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'mobile' => ['required', 'string', new PhoneNumber()],
+            "email" => ['required', 'email'],
+            "password" => ['required', 'string'],
             "fill_name_ar" => ['required', 'string', 'max:50'],
             "fill_name_en" => ['required', 'string', 'max:50'],
             "birth_date" => ['required', 'date', 'before:now'],

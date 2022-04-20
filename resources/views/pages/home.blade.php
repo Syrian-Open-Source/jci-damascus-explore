@@ -14,6 +14,17 @@
                 <label>{{trans('global.fill_name_en')}}</label>
                 <input required name="fill_name_en" maxlength="50" class="form-control">
             </div>
+
+            <div class="form-group">
+                <label>{{trans('global.email')}}</label>
+                <input required name="email" maxlength="50" class="form-control" type="email">
+            </div>
+
+            <div class="form-group">
+                <label>{{trans('global.password')}}</label>
+                <input required name="password" maxlength="50" class="form-control" type="password">
+            </div>
+
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.birth_date')}}</label>
@@ -53,7 +64,7 @@
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.residence')}}</label>
-                    <select required name="residence" class="form-select">
+                    <select required name="residence" class="form-select residence">
                         <option value="0">Damascus</option>
                         <option value="1">Aleppo</option>
                         <option value="2">Homs</option>
@@ -87,7 +98,7 @@
 
             <div class="form-group">
                 <label>{{trans('global.hotel')}}</label>
-                <select required name="hotel_id" class="form-select hotel">
+                <select name="hotel_id" class="form-select hotel">
                     @foreach($hotels as $hotel)
                         <option value="{{$hotel->id}}" class="hotel-item"
                                 data-price="{{$hotel->price}}">{{$hotel->name}} - {{trans('global.cost_for_person')}} {{trans('global.unit')}}
