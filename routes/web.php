@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,18 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\{ActivityController, HotelController, HotelRomeController};
-use App\Models\Hotel;
-use App\Models\User;
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::resource('Activity', ActivityController::class);
-Route::resource('Hotel', HotelController::class);
-Route::resource('HotelRome', HotelRomeController::class);
-
+Route::get('/', [HomeController::class, 'index']);
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
