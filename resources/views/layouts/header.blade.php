@@ -1,1 +1,1 @@
-<?php
+@component('components.logo-center')@endcomponent
