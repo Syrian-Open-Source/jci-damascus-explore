@@ -83,7 +83,9 @@ a {
     outline: none;
     border: none;
 }
-
+.hidden{
+    display: none !important;
+}
 .footer {
     margin-top: 50px;
     width: 100%;
