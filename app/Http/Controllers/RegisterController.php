@@ -19,7 +19,10 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        $hotels = Hotel::all();
+        $hotels = Hotel::withCount('users')->get();
+        $hotels  = collect($hotels)->filter(function ($item){
+            return $item->capacity > $item->users_count;
+        });
         $activities = Activity::all();
 
         return view('pages.register', compact('hotels', 'activities'));
