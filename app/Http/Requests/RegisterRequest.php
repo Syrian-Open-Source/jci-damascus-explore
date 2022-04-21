@@ -30,7 +30,7 @@ class RegisterRequest extends FormRequest
             "password" => ['required', 'string' , 'min:8'],
             "fill_name_ar" => ['required', 'string', 'max:50'],
             "fill_name_en" => ['required', 'string', 'max:50'],
-            "birth_date" => ['required', 'date', 'before:now'],
+            "birth_date" => ['required', 'date', 'before:-18 years'],
             "gender" => ['required', 'string', 'in:0,1'],
             "whatsapp" => ['required', 'string', new PhoneNumber()],
             "quote" => ['required', 'string', 'max:50'],
