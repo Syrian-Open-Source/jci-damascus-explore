@@ -28,7 +28,6 @@ class User extends \TCG\Voyager\Models\User
         'email',
         'avatar',
         'email_verified_at',
-        'password',
         'is_approved',
         'fill_name_en',
         'fill_name_ar',
@@ -65,11 +64,18 @@ class User extends \TCG\Voyager\Models\User
         'email_verified_at' => 'datetime',
     ];
 
-    public function hotel(){
+    public function hotel()
+    {
         return $this->hasOneThrough(Hotel::class, UserInfo::class, "user_id", "id", "id", "hotel_id");
     }
 
-    public static function getLocalRooms(){
+    public function getAvatarAttribute($value)
+    {
+        return url(env('APP_URL').$this->attributes['image']);
+    }
+
+    public static function getLocalRooms()
+    {
         return [
             'Damascus',
             'Aleppo',
@@ -83,11 +89,13 @@ class User extends \TCG\Voyager\Models\User
         ];
     }
 
-    public function activities(){
+    public function activities()
+    {
         return $this->belongsToMany(Activity::class, 'users_activities');
     }
 
-    public function userInfo(){
+    public function userInfo()
+    {
         return $this->hasOne(UserInfo::class);
     }
 
@@ -101,7 +109,7 @@ class User extends \TCG\Voyager\Models\User
         $this->saveImage('id_image', $value);
     }
 
-    private function saveImage($attr , $value)
+    private function saveImage($attr, $value)
     {
         $attribute_name = $attr;
         // destination path relative to the disk above
@@ -120,16 +128,16 @@ class User extends \TCG\Voyager\Models\User
         $image = Image::make($value)->encode('jpg', 90);
 
         // 1. Generate a filename.
-        $filename = md5($value . time()) . '.jpg';
+        $filename = md5($value.time()).'.jpg';
 
         // 2. Store the image on disk.
-        Storage::put($destination_path . '/' . $filename, $image->stream());
+        Storage::put($destination_path.'/'.$filename, $image->stream());
 
         // 3. Delete the previous image, if there was one.
         Storage::delete(Str::replaceFirst('storage/', 'public/', $this->{$attribute_name}));
 
 
         $public_destination_path = Str::replaceFirst('public/', 'storage/', $destination_path);
-        $this->attributes[$attr] = $public_destination_path . '/' . $filename;
+        $this->attributes[$attr] = $public_destination_path.'/'.$filename;
     }
 }

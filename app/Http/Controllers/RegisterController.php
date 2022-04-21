@@ -30,10 +30,10 @@ class RegisterController extends Controller
      *
      * @param  \App\Http\Requests\RegisterRequest  $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
      * @author karam mustafa
      */
-    public function register(RegisterRequest $request)
+    public function store(RegisterRequest $request)
     {
 
         DB::transaction(function () use ($request) {
@@ -43,11 +43,15 @@ class RegisterController extends Controller
             $data = $this->calculateTotalCost($request, $data);
 
             $user = User::create($data);
+            if ($request->activities) {
+                $user->activities()->attach($request->activities);
+            }
 
             event(new SendEmail($user));
         });
 
-        return ;
+        session()->flash('success' , trans('global.register_success_with_desc'));
+        return redirect()->route('home.index');
     }
 
     /**

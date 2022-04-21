@@ -3,7 +3,8 @@
 @section('content')
     <div class="container">
         @include('layouts.sessions')
-        <form class="mx-auto mt-5 w-75" method="POST" action="{{route('register.store')}}" enctype="multipart/form-data">
+        <form class="mx-auto form mt-5 w-75" method="POST" action="{{route('register.store')}}"
+              enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label>{{trans('global.fill_name_ar')}}</label>
@@ -84,17 +85,18 @@
 
             <div class="form-group">
                 <label>{{trans('global.food_allergy')}}</label>
-                <input required name="food_allergy" maxlength="50" class="form-control">
+                <input name="food_allergy" maxlength="50" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.illnesses')}}</label>
-                <input required name="illnesses" maxlength="50" class="form-control">
+                <input name="illnesses" maxlength="50" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.hotel')}}</label>
                 <select name="hotel_id" class="form-select hotel">
+                    <option value=""></option>
                     @foreach($hotels as $hotel)
                         <option value="{{$hotel->id}}" class="hotel-item"
                                 data-price="{{$hotel->price}}">{{$hotel->name}}
@@ -126,6 +128,8 @@
 @push('custom-scripts')
 
     <script>
+        recalculatePrice();
+
         $('.local-room').change(function () {
             if ($(this).val() == 0) {
                 $('.hotel').attr('disabled', true);
