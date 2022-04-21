@@ -8,28 +8,28 @@
             @csrf
             <div class="form-group">
                 <label>{{trans('global.fill_name_ar')}}</label>
-                <input maxlength="50" name="fill_name_ar" class="form-control">
+                <input maxlength="50" value="{{old('fill_name_ar')}}" name="fill_name_ar" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.fill_name_en')}}</label>
-                <input required name="fill_name_en" maxlength="50" class="form-control">
+                <input required value="{{old('fill_name_en')}}" name="fill_name_en" maxlength="50" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.email')}}</label>
-                <input required name="email" maxlength="50" class="form-control" type="email">
+                <input required value="{{old('email')}}" name="email" maxlength="50" class="form-control" type="email">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.password')}}</label>
-                <input required name="password" maxlength="50" class="form-control" type="password">
+                <input required value="{{old('password')}}" name="password" minlength="8" maxlength="50" class="form-control" type="password">
             </div>
 
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.birth_date')}}</label>
-                    <input type="date" name="birth_date" maxlength="50" class="form-control">
+                    <input type="date" value="{{old('birth_date')}}" name="birth_date" maxlength="50" class="form-control">
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.gender')}}</label>
@@ -42,16 +42,16 @@
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.mobile')}}</label>
-                    <input required name="mobile" maxlength="10" minlength="10" type="number" class="form-control">
+                    <input required value="{{old('mobile')}}" name="mobile" maxlength="10" minlength="10" type="number" class="form-control">
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.whatsapp')}}</label>
-                    <input required name="whatsapp" maxlength="50" type="number" class="form-control">
+                    <input required value="{{old('whatsapp')}}" name="whatsapp" maxlength="50" type="number" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label>{{trans('global.fav_quote')}}</label>
-                <input required name="quote" maxlength="50" class="form-control">
+                <input required value="{{old('quote')}}" name="quote" maxlength="50" class="form-control">
             </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
@@ -76,7 +76,7 @@
 
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.position')}}</label>
-                    <select required name="position" class="form-select">
+                    <select required value="{{old('position')}}" name="position" class="form-select">
                         <option value="0">Member</option>
                         <option value="1">Board Member</option>
                     </select>
@@ -85,17 +85,17 @@
 
             <div class="form-group">
                 <label>{{trans('global.food_allergy')}}</label>
-                <input name="food_allergy" maxlength="50" class="form-control">
+                <input value="{{old('food_allergy')}}" name="food_allergy" maxlength="50" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.illnesses')}}</label>
-                <input name="illnesses" maxlength="50" class="form-control">
+                <input value="{{old('illnesses')}}" name="illnesses" maxlength="50" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>{{trans('global.hotel')}}</label>
-                <select name="hotel_id" class="form-select hotel">
+                <select value="{{old('hotel_id')}}" name="hotel_id" class="form-select hotel">
                     <option value=""></option>
                     @foreach($hotels as $hotel)
                         <option value="{{$hotel->id}}" class="hotel-item"
