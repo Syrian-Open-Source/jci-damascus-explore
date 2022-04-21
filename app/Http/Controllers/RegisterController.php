@@ -22,7 +22,7 @@ class RegisterController extends Controller
         $hotels = Hotel::all();
         $activities = Activity::all();
 
-        return view('pages.home', compact('hotels', 'activities'));
+        return view('pages.register', compact('hotels', 'activities'));
     }
 
     /**

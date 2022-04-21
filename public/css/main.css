@@ -83,8 +83,28 @@ a {
     outline: none;
     border: none;
 }
-.hidden{
+
+.f-red {
+    color: #be2738 !important;
+}
+.activity{
+    background: #be2738;
+    width: 70px;
+    height: 70px;
+    padding: 13px;
+    border-radius: 66%;
+    margin: 20px;
+    color: white;
+    font-size: 30px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.hidden {
     display: none !important;
+}
+.font-weight-bold{
+    font-weight: bold !important;
 }
 .footer {
     margin-top: 50px;

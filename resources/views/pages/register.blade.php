@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @include('layouts.sessions')
-        <form class="mx-auto mt-5 w-75" method="POST" action="{{route('register')}}" enctype="multipart/form-data">
+        <form class="mx-auto mt-5 w-75" method="POST" action="{{route('register.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label>{{trans('global.fill_name_ar')}}</label>
@@ -118,7 +118,7 @@
                 </div>
             @endforeach
             <h3 class="total-price mt-5">{{trans('global.total_cost')}}: </h3>
-            <button type="submit" class="btn btn-primary mt-2 w-100 red-bg">{{trans('global.submit')}}</button>
+            <button type="submit" class="btn btn-outline-danger mt-2 w-100">{{trans('global.submit')}}</button>
         </form>
     </div>
 @endsection
