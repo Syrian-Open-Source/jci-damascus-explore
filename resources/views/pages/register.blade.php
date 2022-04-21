@@ -6,6 +6,7 @@
         <form class="mx-auto form mt-5 w-75" method="POST" action="{{route('register.store')}}"
               enctype="multipart/form-data">
             @csrf
+            <p class="text-dark font-weight-bold">{{trans('global.texts.support_note')}}</p>
             <div class="form-group">
                 <label>{{trans('global.fill_name_ar')}}</label>
                 <input maxlength="50" value="{{old('fill_name_ar')}}" name="fill_name_ar" class="form-control">
