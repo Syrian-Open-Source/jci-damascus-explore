@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends \TCG\Voyager\Models\User
@@ -21,6 +24,26 @@ class User extends \TCG\Voyager\Models\User
         'name',
         'email',
         'password',
+        'role_id',
+        'email',
+        'avatar',
+        'email_verified_at',
+        'password',
+        'is_approved',
+        'fill_name_en',
+        'fill_name_ar',
+        'birth_date',
+        'gender',
+        'mobile',
+        'whatsapp',
+        'id_image',
+        'image',
+        'quote',
+        'local_room',
+        'food_allergy',
+        'illnesses',
+        'hotel_id',
+        'total_cost',
     ];
 
     /**
@@ -46,6 +69,20 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasOneThrough(Hotel::class, UserInfo::class, "user_id", "id", "id", "hotel_id");
     }
 
+    public static function getLocalRooms(){
+        return [
+            'Damascus',
+            'Aleppo',
+            'Homs',
+            'Tartus',
+            'Latakia',
+            'Suwayda',
+            'Wadi',
+            'Ugarit',
+            'Baniyas',
+        ];
+    }
+
     public function activities(){
         return $this->belongsToMany(Activity::class, 'users_activities');
     }
@@ -54,4 +91,45 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasOne(UserInfo::class);
     }
 
+    public function setImageAttribute($value)
+    {
+        $this->saveImage('image', $value);
+    }
+
+    public function setIdImageAttribute($value)
+    {
+        $this->saveImage('id_image', $value);
+    }
+
+    private function saveImage($attr , $value)
+    {
+        $attribute_name = $attr;
+        // destination path relative to the disk above
+        $destination_path = "public/$attr";
+
+        // if the Cover was erased
+        if ($value == null) {
+            // delete the Cover from disk
+            Storage::delete($this->{$attribute_name});
+
+            // set null in the database column
+            $this->attributes[$attribute_name] = null;
+        }
+
+        // 0. Make the Cover
+        $image = Image::make($value)->encode('jpg', 90);
+
+        // 1. Generate a filename.
+        $filename = md5($value . time()) . '.jpg';
+
+        // 2. Store the image on disk.
+        Storage::put($destination_path . '/' . $filename, $image->stream());
+
+        // 3. Delete the previous image, if there was one.
+        Storage::delete(Str::replaceFirst('storage/', 'public/', $this->{$attribute_name}));
+
+
+        $public_destination_path = Str::replaceFirst('public/', 'storage/', $destination_path);
+        $this->attributes[$attr] = $public_destination_path . '/' . $filename;
+    }
 }

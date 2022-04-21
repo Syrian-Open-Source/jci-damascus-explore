@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr'}}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,10 +12,10 @@
     <meta property="og:url" content="{{env('APP_URL')}}" />
     <meta property="og:type" content="website" />
     <meta name="title" property="og:title" content="{{env('APP_NAME')}}" />
-    <meta property="og:description" content="{{trans('global.texts.event_introduction')}}"/>
+    <meta property="og:description" content="{{trans('global.texts.introduction')}}"/>
     <meta property="og:image:width" content="530">
     <meta property="og:image:height" content="300">
-    <meta name="facebook:card" content="{{trans('global.texts.event_introduction')}}" />
+    <meta name="facebook:card" content="{{trans('global.texts.introduction')}}" />
     <meta name="facebook:title" content="{{env('APP_NAME')}}" />
     <meta name="facebook:image:src" content="{{ asset('images/logo.png') }}">
     <meta name="facebook:domain" content="{{env('APP_URL')}}">
@@ -38,9 +38,7 @@
 
 <div class="main">
     @include('layouts.header')
-    @include('layouts.sessions')
     @yield('content')
-    @include('components.contribution-section')
     @include('layouts.footer')
 </div>
 
