@@ -150,7 +150,9 @@ input, select {
     .nav {
         width: 75%;
     }
-
+    .form{
+        width: 100% !important;
+    }
     .bg-header {
         margin: 30px 0;
         z-index: 0;

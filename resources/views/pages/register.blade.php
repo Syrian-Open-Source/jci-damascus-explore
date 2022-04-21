@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @include('layouts.sessions')
-        <form class="mx-auto mt-5 w-75" method="POST" action="{{route('register.store')}}"
+        <form class="mx-auto form mt-5 w-75" method="POST" action="{{route('register.store')}}"
               enctype="multipart/form-data">
             @csrf
             <div class="form-group">
