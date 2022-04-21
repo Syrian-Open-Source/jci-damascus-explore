@@ -27,7 +27,7 @@ class SendRegisteredEmail
      */
     public function handle($data)
     {
-        $mail = Mail::to('karam2mustafa@gmail.com');
+        $mail = Mail::to($data->data->email);
         return  $mail->send(new \App\Mail\SendRegisteredEmail($data->data));
     }
 }
