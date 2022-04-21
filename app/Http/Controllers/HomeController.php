@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SendEmail;
 use App\Http\Requests\RegisterRequest;
+use App\Mail\SendRegisteredEmail;
 use App\Models\Activity;
 use App\Models\Hotel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -33,8 +37,41 @@ class HomeController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        dd($request->all());
 
-        return view('pages.home', compact('hotels', 'activities'));
+        DB::transaction(function () use ($request) {
+            $data = $request->all();
+            $data['password'] = bcrypt($request->password);
+
+            $data = $this->calculateTotalCost($request, $data);
+
+            $user = User::create($data);
+
+            event(new SendEmail($user));
+        });
+
+        return ;
+    }
+
+    /**
+     * description
+     *
+     * @param  \App\Http\Requests\RegisterRequest  $request
+     * @param  array  $data
+     *
+     * @return array
+     * @author karam mustafa
+     */
+    private function calculateTotalCost(RegisterRequest $request, array $data)
+    {
+        $data['total_cost'] = 0;
+
+        if ($request->activities) {
+            $data['total_cost'] += Activity::whereIn('id', $request->activities)->sum('price');
+        }
+
+        if ($request->hotel_id) {
+            $data['total_cost'] += Hotel::where('id', $request->hotel_id)->first()->price;
+        }
+        return $data;
     }
 }

@@ -24,6 +24,26 @@ class User extends \TCG\Voyager\Models\User
         'name',
         'email',
         'password',
+        'role_id',
+        'email',
+        'avatar',
+        'email_verified_at',
+        'password',
+        'is_approved',
+        'fill_name_en',
+        'fill_name_ar',
+        'birth_date',
+        'gender',
+        'mobile',
+        'whatsapp',
+        'id_image',
+        'image',
+        'quote',
+        'local_room',
+        'food_allergy',
+        'illnesses',
+        'hotel_id',
+        'total_cost',
     ];
 
     /**
@@ -47,6 +67,20 @@ class User extends \TCG\Voyager\Models\User
 
     public function hotel(){
         return $this->hasOneThrough(Hotel::class, UserInfo::class, "user_id", "id", "id", "hotel_id");
+    }
+
+    public static function getLocalRooms(){
+        return [
+            'Damascus',
+            'Aleppo',
+            'Homs',
+            'Tartus',
+            'Latakia',
+            'Suwayda',
+            'Wadi',
+            'Ugarit',
+            'Baniyas',
+        ];
     }
 
     public function activities(){

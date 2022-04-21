@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'mobile' => ['required', 'string', new PhoneNumber()],
-            "email" => ['required', 'email'],
+            "email" => ['required', 'email', 'unique:users,email'],
             "password" => ['required', 'string'],
             "fill_name_ar" => ['required', 'string', 'max:50'],
             "fill_name_en" => ['required', 'string', 'max:50'],
@@ -34,7 +34,7 @@ class RegisterRequest extends FormRequest
             "gender" => ['required', 'string', 'in:0,1'],
             "whatsapp" => ['required', 'string', new PhoneNumber()],
             "quote" => ['required', 'string', 'max:50'],
-            "residence" => ['required', 'string', 'between:0,9'],
+            "local_room" => ['required', 'string', 'between:0,9'],
             "position" => ['required', 'string', 'in:0,1'],
             "food_allergy" => ['required', 'string', 'max:50'],
             "illnesses" => ['required', 'string', 'max:50'],

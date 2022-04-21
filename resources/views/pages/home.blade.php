@@ -38,15 +38,20 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label>{{trans('global.mobile')}}</label>
-                <input required name="mobile" maxlength="10" minlength="10" type="number" class="form-control">
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label>{{trans('global.mobile')}}</label>
+                    <input required name="mobile" maxlength="10" minlength="10" type="number" class="form-control">
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label>{{trans('global.whatsapp')}}</label>
+                    <input required name="whatsapp" maxlength="50" type="number" class="form-control">
+                </div>
             </div>
             <div class="form-group">
-                <label>{{trans('global.whatsapp')}}</label>
-                <input required name="whatsapp" maxlength="50"  type="number" class="form-control">
+                <label>{{trans('global.fav_quote')}}</label>
+                <input required name="quote" maxlength="50" class="form-control">
             </div>
-
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.image')}}</label>
@@ -57,23 +62,14 @@
                     <input type="file" name="id_image" maxlength="50" class="form-control" required>
                 </div>
             </div>
-            <div class="form-group">
-                <label>{{trans('global.fav_quote')}}</label>
-                <input required name="quote" maxlength="50" class="form-control">
-            </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.residence')}}</label>
-                    <select required name="residence" class="form-select residence">
-                        <option value="0">Damascus</option>
-                        <option value="1">Aleppo</option>
-                        <option value="2">Homs</option>
-                        <option value="3">Tartus</option>
-                        <option value="4">Latakia</option>
-                        <option value="5">Suwayda</option>
-                        <option value="6">Wadi</option>
-                        <option value="7">Ugarit</option>
-                        <option value="8">Baniyas</option>
+                    <select required name="local_room" class="form-select local-room">
+                        <option value=""></option>
+                        @foreach(\App\Models\User::getLocalRooms() as $key => $room)
+                            <option value="{{$key}}">{{$room}}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -101,19 +97,23 @@
                 <select name="hotel_id" class="form-select hotel">
                     @foreach($hotels as $hotel)
                         <option value="{{$hotel->id}}" class="hotel-item"
-                                data-price="{{$hotel->price}}">{{$hotel->name}} - {{trans('global.cost_for_person')}} {{trans('global.unit')}}
+                                data-price="{{$hotel->price}}">{{$hotel->name}}
+                            - {{trans('global.cost_for_person')}} {{trans('global.unit')}}
                             : {{$hotel->price}}</option>
                     @endforeach
                 </select>
+                <p class="hotel-note text-danger hidden">{{trans('global.hotel-notes')}}</p>
             </div>
-            <p class="font-primary">{{trans('global.texts.hotel_notes')}}</p>
+            <p class="text-success">{{trans('global.texts.hotel_notes')}}</p>
             <hr>
             <p>{{trans('global.activities')}}</p>
             @foreach($activities as $index => $activity)
                 <div class="form-check">
-                    <input class="form-check-input activity-item" name="activities[]" data-price="{{$activity->price}}" type="checkbox" value="{{$activity->id}}" id="{{$activity->id}}">
+                    <input class="form-check-input activity-item" name="activities[]" data-price="{{$activity->price}}"
+                           type="checkbox" value="{{$activity->id}}" id="{{$activity->id}}">
                     <label class="form-check-label" for="{{$activity->id}}">
-                        {{$activity->name}} - {{trans('global.cost_for_person')}}: {{$activity->price}} {{trans('global.unit')}}
+                        {{$activity->name}} - {{trans('global.cost_for_person')}}
+                        : {{$activity->price}} {{trans('global.unit')}}
                     </label>
                 </div>
             @endforeach
@@ -126,6 +126,17 @@
 @push('custom-scripts')
 
     <script>
+        $('.local-room').change(function () {
+            if ($(this).val() == 0) {
+                $('.hotel').attr('disabled', true);
+                $('.hotel').val(null);
+                $('.hotel-note').removeClass('hidden');
+            } else {
+                $('.hotel').attr('disabled', false);
+                $('.hotel-note').addClass('hidden');
+            }
+        });
+
         $('.activity-item').click(function () {
             recalculatePrice();
         });
@@ -136,6 +147,7 @@
 
         function recalculatePrice() {
             let total = 0;
+
             $('.hotel-item').each((index, item) => {
                 if (item.selected) {
                     total += parseFloat(item.dataset.price);
