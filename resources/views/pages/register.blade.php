@@ -100,9 +100,8 @@
                     <option value=""></option>
                     @foreach($hotels as $hotel)
                         <option value="{{$hotel->id}}" class="hotel-item"
-                                data-price="{{$hotel->price}}">{{$hotel->name}}
-                            - {{trans('global.cost_for_person')}} {{trans('global.unit')}}
-                            : {{$hotel->price}}</option>
+                                data-price="{{$hotel->price}}">{{$hotel->name}} <b>({{trans('global.cost_for_person')}} {{$hotel->price}} {{trans('global.unit')}})</b>
+                        </option>
                     @endforeach
                 </select>
                 <p class="hotel-note text-danger hidden">{{trans('global.hotel-notes')}}</p>
@@ -115,8 +114,7 @@
                     <input class="form-check-input activity-item" name="activities[]" data-price="{{$activity->price}}"
                            type="checkbox" value="{{$activity->id}}" id="{{$activity->id}}">
                     <label class="form-check-label" for="{{$activity->id}}">
-                        {{$activity->name}} - {{trans('global.cost_for_person')}}
-                        : {{$activity->price}} {{trans('global.unit')}}
+                        {{$activity->name}} <b>({{trans('global.cost_for_person')}} {{$activity->price}} {{trans('global.unit')}})</b>
                     </label>
                 </div>
             @endforeach
