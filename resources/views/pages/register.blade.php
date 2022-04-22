@@ -6,6 +6,7 @@
         <form class="mx-auto form mt-5 w-75" method="POST" action="{{route('register.store')}}"
               enctype="multipart/form-data">
             @csrf
+            <p class="text-dark font-weight-bold">{{trans('global.texts.support_note')}}</p>
             <div class="form-group">
                 <label>{{trans('global.fill_name_ar')}}</label>
                 <input maxlength="50" value="{{old('fill_name_ar')}}" name="fill_name_ar" class="form-control">
@@ -99,11 +100,12 @@
                     <option value=""></option>
                     @foreach($hotels as $hotel)
                         <option value="{{$hotel->id}}" class="hotel-item"
-                                data-price="{{$hotel->price}}">{{$hotel->name}}
-                            - {{trans('global.cost_for_person')}} {{trans('global.unit')}}
-                            : {{$hotel->price}}</option>
+                                data-price="{{$hotel->price}}">{{$hotel->name}} <b>({{trans('global.cost_for_person')}} {{$hotel->price}} {{trans('global.unit')}})</b>
+                        </option>
                     @endforeach
                 </select>
+                <label class="mt-3">{{trans('global.preferred_partner')}}</label>
+                <input value="{{old('preferred_partner')}}" name="preferred_partner" maxlength="50" class="form-control preferred-partner">
                 <p class="hotel-note text-danger hidden">{{trans('global.hotel-notes')}}</p>
             </div>
             <p class="text-success">{{trans('global.texts.hotel_notes')}}</p>
@@ -114,8 +116,7 @@
                     <input class="form-check-input activity-item" name="activities[]" data-price="{{$activity->price}}"
                            type="checkbox" value="{{$activity->id}}" id="{{$activity->id}}">
                     <label class="form-check-label" for="{{$activity->id}}">
-                        {{$activity->name}} - {{trans('global.cost_for_person')}}
-                        : {{$activity->price}} {{trans('global.unit')}}
+                        {{$activity->name}} <b>({{trans('global.cost_for_person')}} {{$activity->price}} {{trans('global.unit')}})</b>
                     </label>
                 </div>
             @endforeach
@@ -133,10 +134,13 @@
         $('.local-room').change(function () {
             if ($(this).val() == 0) {
                 $('.hotel').attr('disabled', true);
+                $('.preferred-partner').attr('disabled', true);
                 $('.hotel').val(null);
+                $('.preferred-partner').val(null);
                 $('.hotel-note').removeClass('hidden');
             } else {
                 $('.hotel').attr('disabled', false);
+                $('.preferred-partner').attr('disabled', false);
                 $('.hotel-note').addClass('hidden');
             }
         });

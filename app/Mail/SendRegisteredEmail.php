@@ -81,6 +81,6 @@ class SendRegisteredEmail extends Mailable
                     'data' => $this->userData,
                     'reporter' => $reporter,
                 ]
-            );
+            )->priority(1);
     }
 }
