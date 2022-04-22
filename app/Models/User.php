@@ -43,6 +43,7 @@ class User extends \TCG\Voyager\Models\User
         'illnesses',
         'hotel_id',
         'total_cost',
+        'preferred_partner',
     ];
 
     /**

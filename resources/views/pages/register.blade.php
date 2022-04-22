@@ -104,6 +104,8 @@
                         </option>
                     @endforeach
                 </select>
+                <label class="mt-3">{{trans('global.preferred_partner')}}</label>
+                <input value="{{old('preferred_partner')}}" name="preferred_partner" maxlength="50" class="form-control preferred-partner">
                 <p class="hotel-note text-danger hidden">{{trans('global.hotel-notes')}}</p>
             </div>
             <p class="text-success">{{trans('global.texts.hotel_notes')}}</p>
@@ -132,10 +134,13 @@
         $('.local-room').change(function () {
             if ($(this).val() == 0) {
                 $('.hotel').attr('disabled', true);
+                $('.preferred-partner').attr('disabled', true);
                 $('.hotel').val(null);
+                $('.preferred-partner').val(null);
                 $('.hotel-note').removeClass('hidden');
             } else {
                 $('.hotel').attr('disabled', false);
+                $('.preferred-partner').attr('disabled', false);
                 $('.hotel-note').addClass('hidden');
             }
         });
