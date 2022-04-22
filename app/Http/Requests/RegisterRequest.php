@@ -39,7 +39,7 @@ class RegisterRequest extends FormRequest
             "food_allergy" => ['sometimes', 'max:50'],
             "illnesses" => ['sometimes',  'max:50'],
             "preferred_partner" => ['sometimes',  'max:50'],
-            "hotel_id" => ['required_if:residence,!=,0', 'string', 'exists:hotels,id'],
+            "hotel_id" => ['required_unless:local_room,0', 'string', 'exists:hotels,id'],
             "image" => ['required','image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
             "id_image" => ['required','image', 'mimes:jpg,png,jpeg,gif,svg,pdf', 'max:2048'],
             "activities" => ['sometimes'],
