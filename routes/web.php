@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\QrCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,5 @@ Route::post('/login', [RegisterController::class, 'login'])->name('register.logi
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::get('QrGenerate/{user}', [QrCodeController::class, 'QrGenerate'])->name('QrGenerate');
 });
