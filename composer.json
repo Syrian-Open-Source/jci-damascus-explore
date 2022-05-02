@@ -12,9 +12,9 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "mpdf/mpdf": "^8.1",
-        "simplesoftwareio/simple-qrcode": "^4.2",
         "maatwebsite/excel": "^3.1",
+        "mpdf/mpdf": "8.0.8",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "tcg/voyager": "^1.5"
     },
     "require-dev": {
