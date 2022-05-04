@@ -123,7 +123,10 @@
                 </div>
             @endforeach
             <h3 class="total-price mt-5">{{trans('global.total_cost')}}: </h3>
-            <button type="submit" class="btn btn-outline-danger mt-2 w-100">{{trans('global.submit')}}</button>
+            <button type="submit" class="btn btn-outline-danger mt-2 w-100 d-flex justify-content-center align-items-center">
+               <div class="btn-content"> {{trans('global.submit')}}</div>
+                <div class="spinner-grow text-light d-none"></div>
+            </button>
         </form>
     </div>
 @endsection
@@ -152,7 +155,8 @@
         });
 
         $('.form').on('submit', function () {
-            alert(1);
+            $('.spinner-grow').removeClass('d-none');
+            $('.btn-content').text("{{trans('global.sending_info')}}");
         });
 
         $('.hotel').change(function () {
