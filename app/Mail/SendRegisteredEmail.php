@@ -16,10 +16,6 @@ class SendRegisteredEmail extends Mailable
 
     private $reporter = [
         [
-            'name' => 'جهاد الهندي',
-            'phone' => '0993370555',
-        ],
-        [
             'name' => 'عبد الله سعود',
             'phone' => '٠٩٨٨٥٠٧٧٠٠',
         ],
@@ -48,8 +44,8 @@ class SendRegisteredEmail extends Mailable
             'phone' => '٠٩٩٤٩٨٠٧١٧',
         ],
         [
-            'name' => 'غارسيا مقعبري',
-            'phone' => '٠٩٩٤٩٨٠٧١٧',
+            'name' => 'جهاد الهندي',
+            'phone' => '0993370555',
         ],
     ];
 
