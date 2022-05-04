@@ -33,6 +33,7 @@ class RegisterRequest extends FormRequest
             "birth_date" => ['required', 'date', 'before:-18 years'],
             "gender" => ['required', 'string', 'in:0,1'],
             "whatsapp" => ['required', 'string', new PhoneNumber()],
+            "facebook" => ['required', 'string'],
             "quote" => ['required', 'string', 'max:50'],
             "local_room" => ['required', 'string', 'between:0,9'],
             "position" => ['required', 'string', 'in:0,1'],
