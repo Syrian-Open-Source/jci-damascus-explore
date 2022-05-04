@@ -7,26 +7,28 @@
               enctype="multipart/form-data">
             @csrf
             <p class="text-dark font-weight-bold">{{trans('global.texts.support_note')}}</p>
+            <h3 class="f-red mt-4 text-center">{{trans('global.personal_info')}}</h3>
+            <hr class="mb-5">
             <div class="form-group">
                 <label>{{trans('global.fill_name_ar')}}</label>
                 <input maxlength="50" value="{{old('fill_name_ar')}}" name="fill_name_ar" class="form-control">
             </div>
-
             <div class="form-group">
                 <label>{{trans('global.fill_name_en')}}</label>
                 <input required value="{{old('fill_name_en')}}" name="fill_name_en" maxlength="50" class="form-control">
             </div>
-
             <div class="form-group">
-                <label>{{trans('global.email')}}</label>
+                <label>{{trans('global.email')}}</label> (<small>{{trans('global.email_desc')}}</small>)
                 <input required value="{{old('email')}}" name="email" maxlength="50" class="form-control" type="email">
             </div>
-
             <div class="form-group">
-                <label>{{trans('global.password')}}</label>
+                <label>{{trans('global.password')}}</label> (<small>{{trans('global.password_desc')}}</small>)
                 <input required value="{{old('password')}}" name="password" minlength="8" maxlength="50" class="form-control" type="password">
             </div>
-
+            <div class="form-group">
+                <label>{{trans('global.facebook')}}</label>
+                <input required value="{{old('facebook')}}" name="facebook" minlength="3" maxlength="50" class="form-control" type="text">
+            </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.birth_date')}}</label>
@@ -50,17 +52,13 @@
                     <input required value="{{old('whatsapp')}}" name="whatsapp" maxlength="50" type="number" class="form-control">
                 </div>
             </div>
-            <div class="form-group">
-                <label>{{trans('global.fav_quote')}}</label>
-                <input required value="{{old('quote')}}" name="quote" maxlength="50" class="form-control">
-            </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.image')}}</label>
                     <input type="file" name="image" maxlength="50" class="form-control" required>
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
-                    <label>{{trans('global.id_image')}}</label>
+                    <label>{{trans('global.id_image')}}</label> (<small>{{trans('global.id_image_desc')}}</small>)
                     <input type="file" name="id_image" maxlength="50" class="form-control" required>
                 </div>
             </div>
@@ -74,7 +72,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.position')}}</label>
                     <select required value="{{old('position')}}" name="position" class="form-select">
@@ -83,17 +80,20 @@
                     </select>
                 </div>
             </div>
-
+            <h3 class="f-red mt-4 text-center">{{trans('global.registration_info')}}</h3>
+            <hr class="mb-5">
             <div class="form-group">
                 <label>{{trans('global.food_allergy')}}</label>
                 <input value="{{old('food_allergy')}}" name="food_allergy" maxlength="50" class="form-control">
             </div>
-
             <div class="form-group">
                 <label>{{trans('global.illnesses')}}</label>
                 <input value="{{old('illnesses')}}" name="illnesses" maxlength="50" class="form-control">
             </div>
-
+            <div class="form-group">
+                <label>{{trans('global.fav_quote')}}</label>
+                <input required value="{{old('quote')}}" name="quote" maxlength="50" class="form-control">
+            </div>
             <div class="form-group">
                 <label>{{trans('global.hotel')}}</label>
                 <select value="{{old('hotel_id')}}" name="hotel_id" class="form-select hotel">
@@ -121,7 +121,10 @@
                 </div>
             @endforeach
             <h3 class="total-price mt-5">{{trans('global.total_cost')}}: </h3>
-            <button type="submit" class="btn btn-outline-danger mt-2 w-100">{{trans('global.submit')}}</button>
+            <button type="submit" class="btn btn-outline-danger mt-2 w-100 d-flex justify-content-center align-items-center">
+               <div class="btn-content"> {{trans('global.submit')}}</div>
+                <div class="spinner-grow text-light d-none"></div>
+            </button>
         </form>
     </div>
 @endsection
@@ -147,6 +150,11 @@
 
         $('.activity-item').click(function () {
             recalculatePrice();
+        });
+
+        $('.form').on('submit', function () {
+            $('.spinner-grow').removeClass('d-none');
+            $('.btn-content').text("{{trans('global.sending_info')}}");
         });
 
         $('.hotel').change(function () {
