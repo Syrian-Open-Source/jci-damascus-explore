@@ -26,7 +26,10 @@
                 <label>{{trans('global.password')}}</label>
                 <input required value="{{old('password')}}" name="password" minlength="8" maxlength="50" class="form-control" type="password">
             </div>
-
+            <div class="form-group">
+                <label>{{trans('global.facebook')}}</label>
+                <input required value="{{old('facebook')}}" name="facebook" minlength="3" maxlength="50" class="form-control" type="text">
+            </div>
             <div class="row">
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.birth_date')}}</label>
@@ -74,7 +77,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="form-group col-md-6 col-sm-12">
                     <label>{{trans('global.position')}}</label>
                     <select required value="{{old('position')}}" name="position" class="form-select">
@@ -147,6 +149,10 @@
 
         $('.activity-item').click(function () {
             recalculatePrice();
+        });
+
+        $('.form').on('submit', function () {
+            alert(1);
         });
 
         $('.hotel').change(function () {

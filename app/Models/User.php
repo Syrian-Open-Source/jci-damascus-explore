@@ -44,6 +44,7 @@ class User extends \TCG\Voyager\Models\User
         'hotel_id',
         'total_cost',
         'preferred_partner',
+        'facebook',
     ];
 
     /**
