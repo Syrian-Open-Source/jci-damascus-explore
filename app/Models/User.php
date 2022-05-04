@@ -132,7 +132,7 @@ class User extends \TCG\Voyager\Models\User
         Storage::delete(Str::replaceFirst('storage/', 'public/', $this->{$attribute_name}));
 
 
-        $public_destination_path = Str::replaceFirst('public/', 'storage/', $destination_path);
+        $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
         $this->attributes[$attr] = $public_destination_path.'/'.$filename;
     }
 }
