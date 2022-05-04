@@ -18,12 +18,12 @@
             </div>
 
             <div class="form-group">
-                <label>{{trans('global.email')}}</label>
+                <label>{{trans('global.email')}}</label> (<small>{{trans('global.email_desc')}}</small>)
                 <input required value="{{old('email')}}" name="email" maxlength="50" class="form-control" type="email">
             </div>
 
             <div class="form-group">
-                <label>{{trans('global.password')}}</label>
+                <label>{{trans('global.password')}}</label> (<small>{{trans('global.password_desc')}}</small>)
                 <input required value="{{old('password')}}" name="password" minlength="8" maxlength="50" class="form-control" type="password">
             </div>
             <div class="form-group">
