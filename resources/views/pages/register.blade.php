@@ -134,19 +134,19 @@
     <script>
         recalculatePrice();
 
-        $('.local-room').change(function () {
-            if ($(this).val() == 0) {
-                $('.hotel').attr('disabled', true);
-                $('.preferred-partner').attr('disabled', true);
-                $('.hotel').val(null);
-                $('.preferred-partner').val(null);
-                $('.hotel-note').removeClass('hidden');
-            } else {
-                $('.hotel').attr('disabled', false);
-                $('.preferred-partner').attr('disabled', false);
-                $('.hotel-note').addClass('hidden');
-            }
-        });
+        // $('.local-room').change(function () {
+        //     if ($(this).val() == 0) {
+        //         $('.hotel').attr('disabled', true);
+        //         $('.preferred-partner').attr('disabled', true);
+        //         $('.hotel').val(null);
+        //         $('.preferred-partner').val(null);
+        //         $('.hotel-note').removeClass('hidden');
+        //     } else {
+        //         $('.hotel').attr('disabled', false);
+        //         $('.preferred-partner').attr('disabled', false);
+        //         $('.hotel-note').addClass('hidden');
+        //     }
+        // });
 
         $('.activity-item').click(function () {
             recalculatePrice();
