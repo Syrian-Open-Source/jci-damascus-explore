@@ -126,12 +126,13 @@ class User extends \TCG\Voyager\Models\User
         $filename = md5($value.time()).'.jpg';
 
         // 2. Store the image on disk.
-        Storage::disk('public')->put($destination_path.'/'.$filename, $image->stream());
+        Storage::put($destination_path.'/'.$filename, $image->stream());
 
         // 3. Delete the previous image, if there was one.
         Storage::delete(Str::replaceFirst('storage/', 'public/', $this->{$attribute_name}));
 
 
-        $this->attributes[$attr] = $destination_path.'/'.$filename;
+        $public_destination_path = Str::replaceFirst('public/', 'storage/', $destination_path);
+        $this->attributes[$attr] = $public_destination_path.'/'.$filename;
     }
 }
