@@ -16,4 +16,11 @@ class UserController extends Controller
         event(new SendEmail($user));
         return back();
     }
+
+    public function toggleApproved(User $user){
+        $user->update([
+            "is_approved" => !$user->is_approved,
+        ]);
+        return back();
+    }
 }
