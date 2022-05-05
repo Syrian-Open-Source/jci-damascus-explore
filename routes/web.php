@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +24,5 @@ Route::post('/login', [RegisterController::class, 'login'])->name('register.logi
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::get('re-send-mail/{user}', [UserController::class, 'resendMail'])->name('ReSendMail');
 });
