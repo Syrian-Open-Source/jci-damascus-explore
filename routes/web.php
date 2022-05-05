@@ -22,4 +22,5 @@ Route::post('/login', [RegisterController::class, 'login'])->name('register.logi
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::get('toggle-approved/{user}', [UserController::class, 'toggleApproved'])->name('ToggleApproved');
 });
