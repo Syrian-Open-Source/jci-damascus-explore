@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Laravel\Sanctum\HasApiTokens;
+use TCG\Voyager\Models\Role;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -103,6 +104,10 @@ class User extends \TCG\Voyager\Models\User
     public function activities()
     {
         return $this->belongsToMany(Activity::class, 'users_activities');
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
 
     public function userInfo()
