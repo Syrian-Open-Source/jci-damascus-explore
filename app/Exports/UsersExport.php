@@ -29,6 +29,8 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
             'quote',
             'hotel',
             'activities',
+            'ID Image',
+            'Image',
             'created_at',
         ];
     }
@@ -48,7 +50,9 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping
             $user->whatsapp,
             $user->quote,
             $user->hotel->name ?? "non",
-            $user->activities->map(fn($activity) => $activity->name),
+            implode(", ", $user->activities->map(fn($activity) => $activity->name)->toArray()),
+            asset($user->id_image),
+            asset($user->image),
             $user->created_at,
         ];
     }
