@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Laravel\Sanctum\HasApiTokens;
+use TCG\Voyager\Models\Role;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -44,6 +45,7 @@ class User extends \TCG\Voyager\Models\User
         'hotel_id',
         'total_cost',
         'preferred_partner',
+        'facebook',
     ];
 
     /**
@@ -73,7 +75,6 @@ class User extends \TCG\Voyager\Models\User
     public static function getLocalRooms()
     {
         return [
-            'Damascus',
             'Aleppo',
             'Homs',
             'Tartus',
@@ -85,9 +86,28 @@ class User extends \TCG\Voyager\Models\User
         ];
     }
 
+    public function getLocalRoomAttribute()
+    {
+        $rooms = [
+            'Aleppo',
+            'Homs',
+            'Tartus',
+            'Latakia',
+            'Suwayda',
+            'Wadi',
+            'Ugarit',
+            'Baniyas',
+        ];
+        return $rooms[$this->attributes['local_room']] ?? null;
+    }
+
     public function activities()
     {
         return $this->belongsToMany(Activity::class, 'users_activities');
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
 
     public function userInfo()
@@ -133,7 +153,7 @@ class User extends \TCG\Voyager\Models\User
         Storage::delete(Str::replaceFirst('storage/', 'public/', $this->{$attribute_name}));
 
 
-        $public_destination_path = Str::replaceFirst('public/', 'storage/', $destination_path);
+        $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
         $this->attributes[$attr] = $public_destination_path.'/'.$filename;
     }
 }

@@ -24,6 +24,7 @@ Route::post('/login', [RegisterController::class, 'login'])->name('register.logi
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::get('users-export', [UserController::class, 'usersExport'])->name('UsersExport');
     Route::get('re-send-mail/{user}', [UserController::class, 'resendMail'])->name('ReSendMail');
     Route::get('toggle-approved/{user}', [UserController::class, 'toggleApproved'])->name('ToggleApproved');
 });
