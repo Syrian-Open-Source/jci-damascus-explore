@@ -40,7 +40,6 @@ class UsersExport extends AbstractAction
 
     public function massAction($ids, $comingFrom)
     {
-        // Do something with the IDs
-        return redirect($comingFrom);
+        return redirect()->route('UsersExport');
     }
 }
