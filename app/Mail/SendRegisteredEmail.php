@@ -68,7 +68,7 @@ class SendRegisteredEmail extends Mailable
     public function build()
     {
 
-        $reporter = $this->reporter[$this->userData->local_room] ?? $this->reporter[0];
+        $reporter = $this->reporter[$this->userData->getRawOriginal('local_room')] ?? $this->reporter[0];
 
         return $this
             ->subject('Explore Damascus Registration')
