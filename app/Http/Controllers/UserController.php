@@ -10,7 +10,9 @@ use App\Models\User;
 class UserController extends Controller
 {
     /**
-     * @param  \App\Model\User  $user
+     * @param  \App\Models\User  $user
+     *
+     * @return \Illuminate\Http\RedirectResponse
      * @author yahia bajbouj
      */
     public function resendMail(User $user)
@@ -25,7 +27,7 @@ class UserController extends Controller
         ]);
         return back();
     }
-    
+
     public function usersExport(){
         return Excel::download(new UsersExport, 'users.xlsx');
     }
