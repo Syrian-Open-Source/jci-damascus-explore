@@ -77,6 +77,7 @@
                     <select required value="{{old('position')}}" name="position" class="form-select">
                         <option value="0">Member</option>
                         <option value="1">Board Member</option>
+                        <option value="2">Senator</option>
                     </select>
                 </div>
             </div>
