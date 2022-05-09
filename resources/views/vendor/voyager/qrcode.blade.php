@@ -57,10 +57,8 @@
                 lastResult = decodedText;
                 // Handle on success condition with the decoded message.
                 document.getElementById('user').value = decodedText;
-                console.log(`Scan result ${decodedText}`, decodedResult);
             }
         }
-
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "qr-reader", {fps: 10, qrbox: 250});
         html5QrcodeScanner.render(onScanSuccess);

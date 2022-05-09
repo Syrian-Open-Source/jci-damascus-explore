@@ -50,7 +50,9 @@ class QrCodeController extends Controller
     public function qrCode()
     {
         $activities = Activity::all();
-        return view('vendor.voyager.qrcode', compact('activities'));
+        $usersWithActivities = User::where('role_id' , 2)->with('activities')->get();
+
+        return view('vendor.voyager.qrcode', compact('activities' , 'usersWithActivities'));
     }
 
     public function checkActivity(HasActivityRequest $request)
