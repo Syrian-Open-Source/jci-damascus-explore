@@ -41,7 +41,7 @@
         <div id="qr-reader-results"></div>
         <select name="activity_id" class="activity">
             @foreach($activities as $activity)
-                <option value="{{$activity->id}}">{{$activity->name}}</option>
+                <option value="{{$activity->id}}" data-users="{{$activity->users->pluck('id')}}">{{$activity->name}}</option>
             @endforeach
         </select>
         <button type="submit"> تحقق</button>
