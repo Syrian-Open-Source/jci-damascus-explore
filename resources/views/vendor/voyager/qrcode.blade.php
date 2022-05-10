@@ -35,7 +35,6 @@
 
     <form action="{{route('checkActivity')}}" method="POST" class="qr-form">
 
-        <input name="user_id" id="user" hidden/>
 
         <div id="qr-reader"></div>
         <div id="qr-reader-results"></div>
@@ -44,19 +43,15 @@
                 <option value="{{$activity->id}}" data-users="{{$activity->users->pluck('id')}}">{{$activity->name}}</option>
             @endforeach
         </select>
-        <button type="submit"> تحقق</button>
     </form>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
         var resultContainer = document.getElementById('qr-reader-results');
         var lastResult, countResults = 0;
-
         function onScanSuccess(decodedText, decodedResult) {
             if (decodedText !== lastResult) {
                 ++countResults;
                 lastResult = decodedText;
-                // Handle on success condition with the decoded message.
-                document.getElementById('user').value = decodedText;
             }
         }
         var html5QrcodeScanner = new Html5QrcodeScanner(
