@@ -101,6 +101,17 @@ class User extends \TCG\Voyager\Models\User
         return $rooms[$this->attributes['local_room']] ?? null;
     }
 
+    public function getTotalCostAttribute()
+    {
+        if(!isset($this->hotel->price)){
+            return 0;
+        }
+
+        return ($this->hotel->price +  $this->activities->reduce(function ($activity,$item){
+            return $activity + $item->price;
+            })) ;
+    }
+
     public function activities()
     {
         return $this->belongsToMany(Activity::class, 'users_activities');
