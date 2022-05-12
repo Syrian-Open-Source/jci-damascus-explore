@@ -69,7 +69,7 @@ class User extends \TCG\Voyager\Models\User
 
     public function hotel()
     {
-        return $this->hasOneThrough(Hotel::class, UserInfo::class, "user_id", "id", "id", "hotel_id");
+        return $this->belongsTo(Hotel::class);
     }
 
     public static function getLocalRooms()
