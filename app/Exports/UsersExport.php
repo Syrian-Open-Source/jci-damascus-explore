@@ -30,9 +30,10 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping,ShouldAut
             'quote',
             'hotel',
             'activities',
+            'Total cost',
             'ID Image',
             'Image',
-            'created_at',
+            'created at',
         ];
     }
 
@@ -46,12 +47,13 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping,ShouldAut
             $user->email,
             $user->is_approved ? 'yes' : 'no',
             $user->birth_date,
-            $user->gender,
+            $user->gender == 0 ? 'male' : 'female',
             $user->mobile,
             $user->whatsapp,
             $user->quote,
             $user->hotel->name ?? "non",
             implode(", ", $user->activities->map(fn($activity) => $activity->name)->toArray()),
+            $user->total_cost,
             asset($user->id_image),
             asset($user->image),
             $user->created_at,
@@ -60,6 +62,6 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping,ShouldAut
 
     public function collection()
     {
-        return User::all();
+        return User::where('role_id' , 2)->get();
     }
 }
