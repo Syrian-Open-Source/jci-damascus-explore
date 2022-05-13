@@ -69,7 +69,7 @@ class User extends \TCG\Voyager\Models\User
 
     public function hotel()
     {
-        return $this->hasOneThrough(Hotel::class, UserInfo::class, "user_id", "id", "id", "hotel_id");
+        return $this->belongsTo(Hotel::class);
     }
 
     public static function getLocalRooms()
@@ -99,6 +99,17 @@ class User extends \TCG\Voyager\Models\User
             'Baniyas',
         ];
         return $rooms[$this->attributes['local_room']] ?? null;
+    }
+
+    public function getTotalCostAttribute()
+    {
+        if(!isset($this->hotel->price)){
+            return 0;
+        }
+
+        return ($this->hotel->price +  $this->activities->reduce(function ($activity,$item){
+            return $activity + $item->price;
+            })) ;
     }
 
     public function activities()
