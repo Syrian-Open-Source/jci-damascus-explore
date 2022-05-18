@@ -22,8 +22,8 @@ Route::middleware('WebsiteIsOpen')->group(function () {
     Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
     Route::post('/login', [RegisterController::class, 'login'])->name('register.login');
-    Route::get('/website-is-open', [HomeController::class, 'closed'])->name('closed');
 });
+Route::get('/website-is-closed', [HomeController::class, 'closed'])->name('closed');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
