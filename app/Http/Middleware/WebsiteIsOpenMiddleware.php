@@ -17,7 +17,7 @@ class WebsiteIsOpenMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!config('app.website_is_open')) {
+        if (!config('app.website_is_open', false)) {
             return redirect()->route('closed');
         }
         return $next($request);
