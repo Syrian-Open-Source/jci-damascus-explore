@@ -17,10 +17,13 @@ use App\Models\User;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-Route::post('/login', [RegisterController::class, 'login'])->name('register.login');
+Route::middleware('WebsiteIsOpen')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+    Route::post('/login', [RegisterController::class, 'login'])->name('register.login');
+    Route::post('/website-is-open', [RegisterController::class, 'login'])->name('closed');
+});
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
