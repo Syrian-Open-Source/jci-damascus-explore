@@ -15,4 +15,14 @@ class HomeController extends Controller
     {
         return view('pages.home');
     }
+
+    /**
+     * load the main web page.
+     *
+     * @author karam mustafa
+     */
+    public function closed()
+    {
+        return view('pages.register_closed');
+    }
 }
