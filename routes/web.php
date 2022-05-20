@@ -28,7 +28,8 @@ Route::get('/website-is-closed', [HomeController::class, 'closed'])->name('close
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     Route::post('check-activity', [QrCodeController::class, 'checkActivity'])->name('checkActivity');
-    Route::get('QrGenerate/{user}', [QrCodeController::class, 'QrGenerate'])->name('QrGenerate');
+    Route::get('qr-generate/{user}', [QrCodeController::class, 'QrGenerate'])->name('QrGenerate');
+    Route::get('all-qr-generate', [QrCodeController::class, 'allQrGenerate'])->name('allQrGenerate');
     Route::get('qr-code', [QrCodeController::class, 'qrCode'])->name('qrCode');
     Route::get('users-export', [UserController::class, 'usersExport'])->name('UsersExport');
     Route::get('re-send-mail/{user}', [UserController::class, 'resendMail'])->name('ReSendMail');
