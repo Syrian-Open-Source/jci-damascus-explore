@@ -40,27 +40,46 @@
         <div id="qr-reader-results"></div>
         <select name="activity_id" class="activity">
             @foreach($activities as $activity)
-                <option value="{{$activity->id}}" data-users="{{$activity->users->pluck('id')}}">{{$activity->name}}</option>
+                <option value="{{$activity->id}}" data-users="{{$activity->users}}">{{$activity->name}}</option>
             @endforeach
         </select>
     </form>
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     <script>
         var resultContainer = document.getElementById('qr-reader-results');
-        var lastResult, countResults = 0;
+        let popupShow = false;
 
         function onScanSuccess(decodedText, decodedResult) {
-            if (decodedText !== lastResult) {
-                ++countResults;
-                lastResult = decodedText;
-
+            if (!popupShow) {
+                popupShow = true;
                 let chooseActivity = document.querySelector('.activity');
-                console.log(chooseActivity)
+                let users = JSON.parse(chooseActivity.selectedOptions[0].dataset.users);
+                let html = '<p style="color: green">Registered</p>';
+                let icon = 'success';
+                console.log(users,decodedText, users.find(item => item.id == parseInt(decodedText)).id)
+                if (users.find(item => item.id == parseInt(decodedText)).id == undefined) {
+                    html = '<p style="color: red"> Not Registered</p>';
+                    icon = 'error';
+                }
+                Swal.fire({
+                    title: 'Registration status',
+                    html: html,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    icon: icon,
+                }).then((result) => {
+                    setTimeout(() => {
+                        popupShow = false;
+                    });
+                }, 2000);
             }
         }
 
         var html5QrcodeScanner = new Html5QrcodeScanner(
-            "qr-reader", {fps: 10, qrbox: 250});
+            "qr-reader", {fps: 10, qrbox: {width: 300, height: 300}});
         html5QrcodeScanner.render(onScanSuccess);
     </script>
 @stop

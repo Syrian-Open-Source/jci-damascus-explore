@@ -36,7 +36,7 @@ class QrCodeController extends Controller
 
         $zip = new \ZipArchive();
         $fileName = 'QR.zip';
-        if ($zip->open(public_path($fileName), \ZipArchive::CREATE) == TRUE) {
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE) == true) {
             $files = File::files(storage_path('/app/QR'));
             foreach ($files as $key => $value) {
                 $relativeName = basename($value);
@@ -50,8 +50,8 @@ class QrCodeController extends Controller
     public function qrCode()
     {
         $activities = Activity::with('users')->get();
-        $users = User::all();
-        return view('vendor.voyager.qrcode', compact('activities' , 'users'));
+        $users = User::where('role_id', 2)->get();
+        return view('vendor.voyager.qrcode', compact('activities', 'users'));
     }
 
     public function checkActivity(HasActivityRequest $request)
