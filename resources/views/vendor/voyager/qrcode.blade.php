@@ -39,6 +39,7 @@
         <div id="qr-reader"></div>
         <div id="qr-reader-results"></div>
         <select name="activity_id" class="activity">
+            <option value="public" data-users="{{$users}}">Public registration</option>
             @foreach($activities as $activity)
                 <option value="{{$activity->id}}" data-users="{{$activity->users}}">{{$activity->name}}</option>
             @endforeach
@@ -55,26 +56,27 @@
         function onScanSuccess(decodedText, decodedResult) {
             if (!popupShow) {
                 popupShow = true;
-                let chooseActivity = document.querySelector('.activity');
-                let users = JSON.parse(chooseActivity.selectedOptions[0].dataset.users);
+                const chooseActivity = document.querySelector('.activity');
+                const users = JSON.parse(chooseActivity.selectedOptions[0].dataset.users);
                 let html = '<p style="color: green">Registered</p>';
                 let icon = 'success';
-                console.log(users,decodedText, users.find(item => item.id == parseInt(decodedText)).id)
-                if (users.find(item => item.id == parseInt(decodedText)).id == undefined) {
+                if (users.find(item => item.id == parseInt(decodedText)) == undefined) {
                     html = '<p style="color: red"> Not Registered</p>';
                     icon = 'error';
                 }
-                Swal.fire({
-                    title: 'Registration status',
-                    html: html,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    icon: icon,
-                }).then((result) => {
-                    setTimeout(() => {
-                        popupShow = false;
-                    });
-                }, 2000);
+                if (!popupShow) {
+                    Swal.fire({
+                        title: 'Registration status',
+                        html: html,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        icon: icon,
+                    })
+                }
+            } else {
+                setTimeout(() => {
+                    popupShow = false;
+                }, 3000)
             }
         }
 
