@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Laravel\Sanctum\HasApiTokens;
+use TCG\Voyager\Models\Role;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -43,6 +44,8 @@ class User extends \TCG\Voyager\Models\User
         'illnesses',
         'hotel_id',
         'total_cost',
+        'preferred_partner',
+        'facebook',
     ];
 
     /**
@@ -66,13 +69,12 @@ class User extends \TCG\Voyager\Models\User
 
     public function hotel()
     {
-        return $this->hasOneThrough(Hotel::class, UserInfo::class, "user_id", "id", "id", "hotel_id");
+        return $this->belongsTo(Hotel::class);
     }
 
     public static function getLocalRooms()
     {
         return [
-            'Damascus',
             'Aleppo',
             'Homs',
             'Tartus',
@@ -84,9 +86,39 @@ class User extends \TCG\Voyager\Models\User
         ];
     }
 
+    public function getLocalRoomAttribute()
+    {
+        $rooms = [
+            'Aleppo',
+            'Homs',
+            'Tartus',
+            'Latakia',
+            'Suwayda',
+            'Wadi',
+            'Ugarit',
+            'Baniyas',
+        ];
+        return $rooms[$this->attributes['local_room']] ?? null;
+    }
+
+    public function getTotalCostAttribute()
+    {
+        if(!isset($this->hotel->price)){
+            return 0;
+        }
+
+        return ($this->hotel->price +  $this->activities->reduce(function ($activity,$item){
+            return $activity + $item->price;
+            })) ;
+    }
+
     public function activities()
     {
         return $this->belongsToMany(Activity::class, 'users_activities');
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
 
     public function userInfo()

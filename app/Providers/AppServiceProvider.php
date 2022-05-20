@@ -25,5 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Voyager::addAction(\App\Actions\QrGenerate::class);
+        Voyager::addAction(\App\Actions\ReSendMail::class);
+        Voyager::addAction(\App\Actions\ToggleApproved::class);
+        Voyager::addAction(\App\Actions\UsersExport::class);
     }
 }

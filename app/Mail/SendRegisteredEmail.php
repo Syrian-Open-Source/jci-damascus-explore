@@ -16,10 +16,6 @@ class SendRegisteredEmail extends Mailable
 
     private $reporter = [
         [
-            'name' => 'جهاد الهندي',
-            'phone' => '0993370555',
-        ],
-        [
             'name' => 'عبد الله سعود',
             'phone' => '٠٩٨٨٥٠٧٧٠٠',
         ],
@@ -48,8 +44,8 @@ class SendRegisteredEmail extends Mailable
             'phone' => '٠٩٩٤٩٨٠٧١٧',
         ],
         [
-            'name' => 'غارسيا مقعبري',
-            'phone' => '٠٩٩٤٩٨٠٧١٧',
+            'name' => 'جهاد الهندي',
+            'phone' => '0993370555',
         ],
     ];
 
@@ -72,7 +68,7 @@ class SendRegisteredEmail extends Mailable
     public function build()
     {
 
-        $reporter = $this->reporter[$this->userData->local_room] ?? $this->reporter[0];
+        $reporter = $this->reporter[$this->userData->getRawOriginal('local_room')] ?? $this->reporter[0];
 
         return $this
             ->subject('Explore Damascus Registration')
@@ -81,6 +77,6 @@ class SendRegisteredEmail extends Mailable
                     'data' => $this->userData,
                     'reporter' => $reporter,
                 ]
-            );
+            )->priority(1);
     }
 }
