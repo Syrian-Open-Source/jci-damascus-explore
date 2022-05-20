@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HasActivityRequest;
 use App\Models\Activity;
 use App\Models\User;
-use \QrCode;
-use \PDF;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Response;
-use File;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QrCodeController extends Controller
 {
