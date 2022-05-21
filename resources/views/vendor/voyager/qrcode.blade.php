@@ -51,10 +51,11 @@
 
     <script>
         var resultContainer = document.getElementById('qr-reader-results');
-        let popupShow = false;
+        let lastTime = null;
 
         function onScanSuccess(decodedText, decodedResult) {
-            if (!popupShow) {
+            if (!(lastTime != null && (Date.now() - lastTime) <= 2500 )) {
+                lastTime = Date.now()
                 popupShow = true;
                 const chooseActivity = document.querySelector('.activity');
                 const users = JSON.parse(chooseActivity.selectedOptions[0].dataset.users);
@@ -64,19 +65,13 @@
                     html = '<p style="color: red"> Not Registered</p>';
                     icon = 'error';
                 }
-                if (!popupShow) {
-                    Swal.fire({
+                Swal.fire({
                         title: 'Registration status',
                         html: html,
                         timer: 2000,
                         timerProgressBar: true,
                         icon: icon,
                     })
-                }
-            } else {
-                setTimeout(() => {
-                    popupShow = false;
-                }, 3000)
             }
         }
 
