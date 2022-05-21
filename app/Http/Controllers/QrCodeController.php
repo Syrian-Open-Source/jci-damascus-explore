@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HasActivityRequest;
 use App\Models\Activity;
 use App\Models\User;
-use \QrCode;
-use \PDF;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Response;
-use File;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QrCodeController extends Controller
 {
@@ -38,7 +36,7 @@ class QrCodeController extends Controller
 
         $zip = new \ZipArchive();
         $fileName = 'QR.zip';
-        if ($zip->open(public_path($fileName), \ZipArchive::CREATE) == TRUE) {
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE) == true) {
             $files = File::files(storage_path('/app/QR'));
             foreach ($files as $key => $value) {
                 $relativeName = basename($value);
@@ -51,8 +49,9 @@ class QrCodeController extends Controller
 
     public function qrCode()
     {
-        $activities = Activity::all();
-        return view('vendor.voyager.qrcode', compact('activities'));
+        $activities = Activity::with('users')->get();
+        $users = User::where('role_id', 2)->get();
+        return view('vendor.voyager.qrcode', compact('activities', 'users'));
     }
 
     public function checkActivity(HasActivityRequest $request)
