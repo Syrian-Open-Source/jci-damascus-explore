@@ -20,7 +20,7 @@ class QrCodeController extends Controller
     public function QrGenerate(User $user)
     {
         $qrCode = base64_encode(QrCode::size(150)->generate($user->id));
-        $pdf = PDF::loadView('file.identification', compact('qrCode', 'user'))->setPaper('a6', 'landscape');
+        $pdf = PDF::loadView('file.identification', compact('qrCode', 'user'))->setPaper('a6');
         return $pdf->download("$user->fill_name_en.pdf");
     }
 
@@ -29,7 +29,7 @@ class QrCodeController extends Controller
         $users = User::where('role_id', 2)->get();
         foreach ($users as $user) {
             $qrCode = base64_encode(QrCode::size(150)->generate($user->id));
-            $pdf = PDF::loadView('file.identification', compact('qrCode', 'user'))->setPaper('a6', 'landscape');
+            $pdf = PDF::loadView('file.identification', compact('qrCode', 'user'))->setPaper('a6');
             $content = $pdf->download()->getOriginalContent();
             Storage::put("QR/$user->fill_name_en.pdf", $content);
         }

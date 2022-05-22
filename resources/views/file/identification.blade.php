@@ -12,17 +12,9 @@
     .page-break {
       page-break-after: always;
     }
-
-    .page {
-      display: flex;
-      justify-content: center;
-    }
-
     .img-center {
       display: block;
-      margin-left: 150px;
       margin-top: 75px;
-      /* width: 50%; */
     }
 
     .text-center {
@@ -32,13 +24,19 @@
 </head>
 
 <body dir="rtl">
-  <div class="page">
-    <h2 class="text-center">{{$user->fill_name_en}}</h2>
-    <h4 class="text-center">{{$user->email}}</h4>
+  <div style="position: relative; width: 269px; height: 351px; margin: auto;">
+    <img src="https://explore.jci-damascus.com/images/qrBackground.png" style="position: absolute; width: 269px; height: 351px; z-index: -1000; border:5px solid #000" />
+    <div style="position: absolute; width: 269px; text-align: center; color: white; line-height: 1.5">
+      <span style="color: black; padding: .5em; margin-top: 70px; display:block; font-size:24px; font-weight: bold;" class="text-center">{{$user->fill_name_en}}</span> <br />
+      <span style="color: black; padding: .5em;" class="text-center">{{$user->email}}</span>
+    </div>
   </div>
   <div class="page-break"></div>
-  <div class="page">
-    <img class="img-center" src="data:image/png;base64, {{ $qrCode }}" />
+  <div style="position: relative; width: 269px; height: 351px; margin: auto;">
+    <img src="https://explore.jci-damascus.com/images/qrBackground.png" style="position: absolute; width: 269px; height: 351px; z-index: -1000; border:5px solid #000" />
+    <div style="position: absolute; width: 269px; text-align: center; color: white; line-height: 1.5">
+      <img class="img-center" src="data:image/png;base64, {{ $qrCode }}" />
+    </div>
   </div>
 </body>
 
