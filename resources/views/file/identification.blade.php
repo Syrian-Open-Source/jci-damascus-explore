@@ -28,7 +28,7 @@
     <img src="https://explore.jci-damascus.com/images/qrBackground.png" style="position: absolute; width: 269px; height: 351px; z-index: -1000; border:5px solid #000" />
     <div style="position: absolute; width: 269px; text-align: center; color: white; line-height: 1.5">
       <span style="color: black; padding: .5em; margin-top: 70px; display:block; font-size:24px; font-weight: bold;" class="text-center">{{$user->fill_name_en}}</span> <br />
-      <span style="color: black; padding: .5em;" class="text-center">{{$user->email}}</span>
+      <span style="color: black; padding: .5em;" class="text-center">{{$user->local_room}}</span>
     </div>
   </div>
   <div class="page-break"></div>

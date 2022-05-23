@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HasActivityRequest;
 use App\Models\Activity;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -29,7 +30,7 @@ class QrCodeController extends Controller
         $users = User::where('role_id', 2)->get();
         foreach ($users as $user) {
             $qrCode = base64_encode(QrCode::size(150)->generate($user->id));
-            $pdf = PDF::loadView('file.identification', compact('qrCode', 'user'))->setPaper('a6');
+            $pdf = Pdf::loadView('file.identification', compact('qrCode', 'user'))->setPaper('a6');
             $content = $pdf->download()->getOriginalContent();
             Storage::put("QR/$user->fill_name_en.pdf", $content);
         }
