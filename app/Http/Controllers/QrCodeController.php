@@ -16,18 +16,21 @@ class QrCodeController extends Controller
     /**
      * load the main web page.
      *
+     * @param  \App\Models\User  $user
+     *
+     * @return \Illuminate\Http\Response
      * @author yahia bajbouj
      */
     public function QrGenerate(User $user)
     {
         $qrCode = base64_encode(QrCode::size(150)->generate($user->id));
-        $pdf = PDF::loadView('file.identification', compact('qrCode', 'user'))->setPaper('a6');
+        $pdf = PDF::loadView('file.identification', compact('qrCode', 'user'))->setPaper('qr');
         return $pdf->download("$user->fill_name_en.pdf");
     }
 
     public function allQrGenerate()
     {
-        $users = User::where('role_id', 2)->get();
+        $users = User::where('role_id', 2)->where('hotel_id', '!=', null)->get();
         foreach ($users as $user) {
             $qrCode = base64_encode(QrCode::size(150)->generate($user->id));
             $pdf = Pdf::loadView('file.identification', compact('qrCode', 'user'))->setPaper('a6');
