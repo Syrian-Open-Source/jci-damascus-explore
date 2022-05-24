@@ -38,7 +38,7 @@
 
         <div id="qr-reader"></div>
         <div id="qr-reader-results"></div>
-        <select name="activity_id" class="activity">
+        <select name="activity_id" class="activity" data-users="{{$users}}">
             <option value="public" data-users="{{$users}}">Public registration</option>
             @foreach($activities as $activity)
                 <option value="{{$activity->id}}" data-users="{{$activity->users}}">{{$activity->name}}</option>
@@ -54,24 +54,26 @@
         let lastTime = null;
 
         function onScanSuccess(decodedText, decodedResult) {
-            if (!(lastTime != null && (Date.now() - lastTime) <= 2500 )) {
+            if (!(lastTime != null && (Date.now() - lastTime) <= 2500)) {
                 lastTime = Date.now()
                 popupShow = true;
                 const chooseActivity = document.querySelector('.activity');
+                let allUsers = JSON.parse(chooseActivity.dataset.users);
                 const users = JSON.parse(chooseActivity.selectedOptions[0].dataset.users);
-                let html = '<p style="color: green">Registered</p>';
+                let username = allUsers.find(item => item.id == parseInt(decodedText)).fill_name_en;
+                let html = `<div> user: ${username} </div> <p style="color: green">Registered</p>`;
                 let icon = 'success';
                 if (users.find(item => item.id == parseInt(decodedText)) == undefined) {
-                    html = '<p style="color: red"> Not Registered</p>';
+                    html = `<div> user: ${username} </div>  <p style="color: red"> Not Registered</p>`;
                     icon = 'error';
                 }
                 Swal.fire({
-                        title: 'Registration status',
-                        html: html,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        icon: icon,
-                    })
+                    title: 'Registration status',
+                    html: html,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    icon: icon,
+                })
             }
         }
 
